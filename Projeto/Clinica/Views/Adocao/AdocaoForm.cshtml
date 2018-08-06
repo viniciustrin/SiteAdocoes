@@ -1,0 +1,54 @@
+﻿@model SiteAdocoes.ViewModels.AdocaoViewModel
+@{
+    ViewBag.Title = Model.Heading;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Adocao", new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Pet)
+        @Html.DropDownListFor(m => m.Pet, new SelectList(Model.Pets, "Id", "Nome"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Pet)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Adotante)
+        @Html.DropDownListFor(m => m.Adotante, new SelectList(Model.Adotantes, "Id", "Nome"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Adotante)
+    </div>
+    <button class="btn btn-primary" type="submit">@Model.Botao</button>
+}
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Adoções</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Pet Adotado</td>
+                <td>Adotante</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var adocao in Model.Adocoes)
+            {
+                <tr>
+                    <td>@adocao.Id</td>
+                    <td>@adocao.Pet.Nome</td>
+                    <td>@adocao.Adotante.Nome</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+

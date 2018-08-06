@@ -1,0 +1,84 @@
+﻿body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font-size: 17px; }
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+  white-space: normal; }
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+/*override bootstrap*/
+.navbar-inverse {
+  background-color: #3b4bd6;
+  border-color: #3b4bd6; }
+  .navbar-inverse .navbar-nav li a {
+    color: #fff; }
+  .navbar-inverse .navbar-brand {
+    color: #fff;
+    font-weight: 700; }
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+  border-top-color: #fff;
+  border-bottom-color: #fff; }
+
+.caret {
+  border-top-color: #fff;
+  border-bottom-color: #fff; }
+
+.form-group {
+  margin-bottom: 20px; }
+
+.form-control {
+  font-size: 17px;
+  border-radius: 9px;
+  height: 44px; }
+  .form-control:focus {
+    border-color: #2196f3;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    color: black !important; }
+
+.btn-lg {
+  font-size: 17px;
+  padding: 7px 20px;
+  border-radius: 9px; }
+
+.dropdown-menu li a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #333333 !important;
+  white-space: nowrap; }
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: rgba(54, 65, 158, 0.55); }
+
+span.field-validation-error {
+  color: red;
+  font-weight: bold; }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s; }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+
+.container {
+  padding: 2px 16px; }
+

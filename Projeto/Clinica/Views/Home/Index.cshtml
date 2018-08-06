@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SiteAdocoes.Models.PossiveisAdocoes>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>Adoções Sugeridas</h3>
+
+
+<div class="row">
+
+    @foreach (var adocao in Model)
+    {
+        <div class="col-md-2 col-lg-2">
+            <div class="card">
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center ">@adocao.Pet.Nome</div>
+
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <li class="list-group-item text-center">@adocao.Adotante.Nome</li>
+                        <li class="list-group-item text-center">@adocao.Adotante.Telefone</li>
+                        <li class="list-group-item text-center"><button data-pet-id='{ PetId : "@adocao.Pet.Id", AdotanteId : "@adocao.Adotante.Id" }'  class="btn btn-primary btn-sm js-adotar">Adotar</button></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-adotar").click(function (e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Tem certeza que adotar esse pet?",
+                    title: "Confirmação",
+                    buttons: {
+                        no: {
+                            label: "Não",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Sim",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Adocao/",
+                                    method: "Post",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: link.attr("data-pet-id")
+                                })
+                                    .done(function () {
+                                        link.parents("div.card").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("Ocorreu um erro!");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

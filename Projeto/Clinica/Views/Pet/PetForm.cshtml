@@ -1,0 +1,173 @@
+﻿@model SiteAdocoes.ViewModels.PetViewModel
+@{
+    /**/
+
+    ViewBag.Title = Model.Heading;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Pet", new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-8 col-lg-8">
+                @Html.LabelFor(x => x.Nome)
+                @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Nome)
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+                @Html.LabelFor(x => x.Raca)
+                @Html.TextBoxFor(x => x.Raca, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Raca)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-5 col-lg-5">
+                @Html.LabelFor(x => x.Especie)
+                @Html.DropDownListFor(x => x.Especie, new SelectList(Model.Especies, "Id", "NomeEspecie"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Especie)
+            </div>
+            <div class="col-md-5 col-lg-5">
+
+                @Html.LabelFor(x => x.Porte)
+                @Html.DropDownListFor(x => x.Porte, new SelectList(Model.Portes, "Id", "NomePorte"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Porte)
+            </div>
+
+            <div class="col-md-2 col-lg-2">
+                @Html.LabelFor(x => x.Idade)
+                @Html.TextBoxFor(x => x.Idade, new { @class = "form-control text-right" })
+                @Html.ValidationMessageFor(x => x.Idade)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Observacao)
+        @Html.TextAreaFor(x => x.Observacao, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Observacao)
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="checkbox">
+                    @Html.LabelFor(x => x.Adotado)
+                    @Html.CheckBoxFor(x => x.Adotado, new { @class = "", disabled = "disabled " })
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="checkbox">
+                    @Html.LabelFor(x => x.Castrado)
+                    @Html.CheckBoxFor(x => x.Castrado, new { @class = "" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+                <div class="checkbox">
+                    @Html.LabelFor(x => x.Vacinado)
+                    @Html.CheckBoxFor(x => x.Vacinado, new { @class = "" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">@Model.Botao</button>
+}
+
+<hr />
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Pets</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Espécie</td>
+                <td>Raça</td>
+                <td>Adotado</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pet in Model.Pets)
+            {
+                <tr>
+                    <td>@pet.Id</td>
+                    <td>@pet.Nome</td>
+                    <td>@pet.Especie.NomeEspecie</td>
+                    <td>@pet.Raca</td>
+                    <td>
+                        @if (pet.Adotado)
+                        {
+                            @Html.Raw("Sim")
+                        }
+                        else
+                        {
+                            @Html.Raw("Não")
+                        }
+                    </td>
+                    <td><a href="@Url.Action("Edit","Pet", new { id = pet.Id } )">Editar</a> | <a href="#" class="js-cancel" data-id="@pet.Id">Remover</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel").click(function (e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Tem certeza que quer remover esse pet?",
+                    title: "Confirmação",
+                    buttons: {
+                        no: {
+                            label: "Não",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Sim",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/Pet/" + link.attr("data-id"),
+                                    method: "DELETE"
+                                })
+                                    .done(function () {
+                                        link.parents("tr").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("Ocorreu um erro!");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+
