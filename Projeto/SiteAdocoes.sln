@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteAdocoes", "Clinica\SiteAdocoes.csproj", "{CDF941A6-8051-43AA-BD34-6D66C16176ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteAdocoes", "SiteAdocoes\SiteAdocoes.csproj", "{CDF941A6-8051-43AA-BD34-6D66C16176ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adocoes.Tests", "Adocoes.Tests\Adocoes.Tests.csproj", "{2701D9C3-B3FB-4C83-99B1-C54541486D18}"
 EndProject
