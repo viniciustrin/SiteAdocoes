@@ -83,6 +83,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary btn-lg">@Model.Botao</button>
+    <div id="shareBtn" class="btn btn-primary btn-lg">Compartilhar no facebook</div>
 }
 
 <hr />
@@ -94,11 +95,11 @@
     <table class="table">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Nome</td>
-                <td>Espécie</td>
-                <td>Raça</td>
-                <td>Adotado</td>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Adotado</th>
             </tr>
         </thead>
         <tbody>
@@ -130,44 +131,70 @@
 
 @section scripts
 {
-    <script>
-        $(document).ready(function () {
-            $(".js-cancel").click(function (e) {
-                var link = $(e.target);
+<script>
+    $(document).ready(function () {
+        $(".js-cancel").click(function (e) {
+            var link = $(e.target);
 
-                bootbox.dialog({
-                    message: "Tem certeza que quer remover esse pet?",
-                    title: "Confirmação",
-                    buttons: {
-                        no: {
-                            label: "Não",
-                            className: "btn-default",
-                            callback: function () {
-                                bootbox.hideAll();
-                            }
-                        },
-                        yes: {
-                            label: "Sim",
-                            className: "btn-danger",
-                            callback: function () {
-                                $.ajax({
-                                    url: "/api/Pet/" + link.attr("data-id"),
-                                    method: "DELETE"
-                                })
-                                    .done(function () {
-                                        link.parents("tr").fadeOut(function () {
-                                            $(this).remove();
-                                        });
-                                    })
-                                    .fail(function () {
-                                        alert("Ocorreu um erro!");
+            bootbox.dialog({
+                message: "Tem certeza que quer remover esse pet?",
+                title: "Confirmação",
+                buttons: {
+                    no: {
+                        label: "Não",
+                        className: "btn-default",
+                        callback: function () {
+                            bootbox.hideAll();
+                        }
+                    },
+                    yes: {
+                        label: "Sim",
+                        className: "btn-danger",
+                        callback: function () {
+                            $.ajax({
+                                url: "/api/Pet/" + link.attr("data-id"),
+                                method: "DELETE"
+                            })
+                                .done(function () {
+                                    link.parents("tr").fadeOut(function () {
+                                        $(this).remove();
                                     });
-                            }
+                                })
+                                .fail(function () {
+                                    alert("Ocorreu um erro!");
+                                });
                         }
                     }
-                });
+                }
             });
         });
+    });
+
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: 1876158796025120,
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v3.1'
+        });
+    };
+
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return ;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+    document.getElementById('shareBtn').onclick = function () {
+        FB.ui({
+            method: 'share',
+            display: 'popup',
+        }, function (response) { });
+    }
     </script>
 }
 

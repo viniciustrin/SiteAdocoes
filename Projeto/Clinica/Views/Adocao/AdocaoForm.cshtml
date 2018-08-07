@@ -32,19 +32,21 @@
     <table class="table">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Pet Adotado</td>
-                <td>Adotante</td>
+                <th>Pet Adotado</th>
+                <th>Raça do Pet</th>
+                <th>Adotante</th>
+                <th>Telefone</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var adocao in Model.Adocoes)
             {
-                <tr>
-                    <td>@adocao.Id</td>
-                    <td>@adocao.Pet.Nome</td>
-                    <td>@adocao.Adotante.Nome</td>
-                </tr>
+            <tr>
+                <td>@adocao.Pet.Nome</td>
+                <td>@adocao.Pet.Raca</td>
+                <td>@adocao.Adotante.Nome</td>
+                <td>@adocao.Adotante.Telefone</td>
+            </tr>
 
             }
         </tbody>
