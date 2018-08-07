@@ -120,8 +120,9 @@
                                             $(this).remove();
                                         });
                                     })
-                                    .fail(function () {
-                                        alert("Ocorreu um erro!");
+                                    .fail(function (err) {
+
+                                        alert($.parseJSON(err.responseText)["Message"]);
                                     });
                             }
                         }

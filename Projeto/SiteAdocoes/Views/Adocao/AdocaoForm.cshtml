@@ -24,7 +24,7 @@
     <button class="btn btn-primary" type="submit">@Model.Botao</button>
 }
 
-
+<hr />
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">Adoções</div>
@@ -41,12 +41,12 @@
         <tbody>
             @foreach (var adocao in Model.Adocoes)
             {
-            <tr>
-                <td>@adocao.Pet.Nome</td>
-                <td>@adocao.Pet.Raca</td>
-                <td>@adocao.Adotante.Nome</td>
-                <td>@adocao.Adotante.Telefone</td>
-            </tr>
+                <tr>
+                    <td>@adocao.Pet.Nome</td>
+                    <td>@adocao.Pet.Raca</td>
+                    <td>@adocao.Adotante.Nome</td>
+                    <td>@adocao.Adotante.Telefone</td>
+                </tr>
 
             }
         </tbody>

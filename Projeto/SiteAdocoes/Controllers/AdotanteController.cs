@@ -56,7 +56,7 @@ namespace SiteAdocoes.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            var adotante = _context.Adotantes.Where(x => x.Id == id).FirstOrDefault();
+            var adotante = _context.Adotantes.SingleOrDefault(x => x.Id == id);
 
             if (adotante == null)
                 return RedirectToAction("Create", "Adotante");
@@ -83,7 +83,7 @@ namespace SiteAdocoes.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(AdotanteViewModel vm)
         {
-            var adotante = _context.Adotantes.Where(x => x.Id == vm.Id).FirstOrDefault();
+            var adotante = _context.Adotantes.SingleOrDefault(x => x.Id == vm.Id);
 
             if (adotante == null)
                 return RedirectToAction("Create", "Adotante");

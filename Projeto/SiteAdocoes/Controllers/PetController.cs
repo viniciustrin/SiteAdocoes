@@ -60,7 +60,7 @@ namespace SiteAdocoes.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-                var pet = _context.Pets.Where(x => x.Id == id).FirstOrDefault();
+                var pet = _context.Pets.SingleOrDefault(x => x.Id == id);
 
                 if (pet == null)
                     return RedirectToAction("Create", "Pet");
@@ -95,7 +95,7 @@ namespace SiteAdocoes.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(PetViewModel vm)
         {
-            var pet = _context.Pets.Where(x => x.Id == vm.Id).FirstOrDefault();
+            var pet = _context.Pets.SingleOrDefault(x => x.Id == vm.Id);
 
             if (pet == null)
                 return RedirectToAction("Create", "Pet");

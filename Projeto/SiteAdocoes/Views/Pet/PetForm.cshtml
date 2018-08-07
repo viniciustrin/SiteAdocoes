@@ -100,6 +100,7 @@
                 <th>Espécie</th>
                 <th>Raça</th>
                 <th>Adotado</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -109,7 +110,7 @@
                     <td>@pet.Id</td>
                     <td>@pet.Nome</td>
                     <td>@pet.Especie.NomeEspecie</td>
-                    <td>@pet.Raca</td>
+                    <td>@pet.Raca</td>                   
                     <td>
                         @if (pet.Adotado)
                         {
@@ -120,7 +121,16 @@
                             @Html.Raw("Não")
                         }
                     </td>
-                    <td><a href="@Url.Action("Edit","Pet", new { id = pet.Id } )">Editar</a> | <a href="#" class="js-cancel" data-id="@pet.Id">Remover</a></td>
+                    <td>
+                        @if (pet.Adotado)
+                        {
+                            @:<a href="@Url.Action("Edit", "Pet", new { id = pet.Id })">Editar</a> 
+                        }
+                        else
+                        {
+                            @:<a href="@Url.Action("Edit", "Pet", new { id = pet.Id })">Editar</a> | <a href = "#" class="js-cancel" data-id="@pet.Id">Remover</a>
+                        }
+                    </td>
                 </tr>
 
             }

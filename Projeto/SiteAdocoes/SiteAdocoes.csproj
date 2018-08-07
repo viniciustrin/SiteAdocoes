@@ -241,6 +241,7 @@
     <Compile Include="Models\Porte.cs" />
     <Compile Include="Models\PossiveisAdocoes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdocaoRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AdocaoViewModel.cs" />
     <Compile Include="ViewModels\AdotanteViewModel.cs" />
